@@ -1,0 +1,48 @@
+name: Build release zip
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches plugin version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          HEADER=$(grep -m1 -E '^\s*\*\s*Version:' vu-legals.php | sed -E 's/.*Version:\s*//; s/\s+$//')
+          CONST=$(grep -m1 "define( 'VUL_VERSION'" vu-legals.php | sed -E "s/.*'VUL_VERSION',\s*'([^']+)'.*/\1/")
+          echo "tag=$TAG header=$HEADER const=$CONST"
+          [ "$TAG" = "$HEADER" ] && [ "$TAG" = "$CONST" ] || { echo "Version mismatch"; exit 1; }
+
+      - name: Build zip
+        run: |
+          mkdir -p build/vu-legals
+          rsync -a \
+            --exclude='.git' --exclude='.github' --exclude='.gitignore' \
+            --exclude='build' --exclude='README.md' --exclude='.DS_Store' \
+            ./ build/vu-legals/
+          cd build
+          zip -rq vu-legals.zip vu-legals
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vu-legals
+          path: build/vu-legals.zip
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/vu-legals.zip
+          generate_release_notes: true

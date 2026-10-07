@@ -3,7 +3,7 @@
  * Plugin Name:       Vu Legals
  * Plugin URI:        https://vudigital.co.uk
  * Description:       Cookie consent, cookie registry, script gating, Google Consent Mode v2 and a generated Cookie Policy. Styled from your own CSS variables. No licence, no branding.
- * Version:           1.1.2
+ * Version:           1.1.3
  * Requires at least: 6.3
  * Requires PHP:      8.0
  * Author:            Vu Digital
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'VUL_VERSION', '1.1.2' );
+define( 'VUL_VERSION', '1.1.3' );
 define( 'VUL_FILE', __FILE__ );
 define( 'VUL_DIR', plugin_dir_path( __FILE__ ) );
 define( 'VUL_URL', plugin_dir_url( __FILE__ ) );
@@ -36,6 +36,7 @@ require_once VUL_DIR . 'includes/class-gravity-forms.php';
 require_once VUL_DIR . 'includes/class-documents.php';
 require_once VUL_DIR . 'includes/class-compat.php';
 require_once VUL_DIR . 'includes/class-admin.php';
+require_once VUL_DIR . 'includes/class-updater.php';
 
 register_activation_hook( __FILE__, array( 'VUL_Log', 'install' ) );
 register_activation_hook( __FILE__, array( 'VUL_Settings', 'install_defaults' ) );
@@ -51,6 +52,7 @@ add_action( 'plugins_loaded', function () {
 	VUL_Log::init();
 	VUL_Gravity_Forms::init();
 	VUL_Compat::init();
+	VUL_Updater::init();
 	VUL_Documents::init();
 	if ( is_admin() ) {
 		VUL_Admin::init();
