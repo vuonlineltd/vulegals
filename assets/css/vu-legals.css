@@ -1,0 +1,565 @@
+/* Vu Legals — everything is driven by --vul-* custom properties.
+   Set them in Settings → Vu Legals → Style, or define them in your theme (style mode: theme). */
+
+:root {
+	--vul-bg: #fff;
+	--vul-fg: #1b1c26;
+	--vul-muted: #5c5f6e;
+	--vul-accent: #1b1c26;
+	--vul-accent-fg: #fff;
+	--vul-border: #e6e4dd;
+	--vul-radius: 12px;
+	--vul-font: inherit;
+	--vul-shadow: 0 12px 40px rgba(0, 0, 0, .18);
+	--vul-z: 99999;
+	--vul-gap: 16px;
+	--vul-max: 440px;
+	--vul-btn-radius: calc(var(--vul-radius) * .66);
+	--vul-switch-on: var(--vul-accent);
+	--vul-switch-off: #c9c8c2;
+	--vul-overlay: rgba(0, 0, 0, .45);
+	--vul-text-size: 15px;
+}
+
+.vul,
+.vul * {
+	box-sizing: border-box;
+}
+
+.vul {
+	font-family: var(--vul-font);
+	font-size: var(--vul-text-size);
+	line-height: 1.5;
+	color: var(--vul-fg);
+}
+
+.vul[hidden],
+.vul [hidden] {
+	display: none !important;
+}
+
+.vul p {
+	margin: 0;
+}
+
+.vul a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: .15em;
+}
+
+.vul-title {
+	font-weight: 700;
+	font-size: 1.1em;
+	margin: 0 0 .35em;
+}
+
+.vul-body {
+	color: var(--vul-muted);
+}
+
+.vul-muted {
+	color: var(--vul-muted);
+}
+
+/* ----- Banner ----- */
+
+.vul-banner {
+	position: fixed;
+	z-index: var(--vul-z);
+	background: var(--vul-bg);
+	color: var(--vul-fg);
+	border: 1px solid var(--vul-border);
+	border-radius: var(--vul-radius);
+	box-shadow: var(--vul-shadow);
+	padding: 20px;
+	animation: vul-in .3s ease both;
+}
+
+.vul--box-left .vul-banner,
+.vul--box-right .vul-banner,
+.vul--modal .vul-banner {
+	bottom: var(--vul-gap);
+	left: var(--vul-gap);
+	width: calc(100% - var(--vul-gap) * 2);
+	max-width: var(--vul-max);
+}
+
+.vul--box-right .vul-banner {
+	left: auto;
+	right: var(--vul-gap);
+}
+
+.vul--modal .vul-banner {
+	left: 50%;
+	bottom: auto;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 520px;
+	animation-name: vul-in-modal;
+}
+
+.vul--bar .vul-banner {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 0;
+	border-width: 1px 0 0;
+	box-shadow: 0 -8px 30px rgba(0, 0, 0, .1);
+}
+
+.vul--bar .vul-banner__inner {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	flex-wrap: wrap;
+}
+
+.vul--bar .vul-banner__text {
+	flex: 1 1 320px;
+}
+
+.vul--bar .vul-actions {
+	margin-top: 0;
+	flex: 0 0 auto;
+}
+
+.vul-banner__inner {
+	display: block;
+}
+
+.vul-icon {
+	display: block;
+	color: var(--vul-accent);
+	margin-bottom: 12px;
+}
+
+.vul--bar .vul-icon {
+	margin: 0;
+}
+
+/* ----- Buttons ----- */
+
+.vul-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 16px;
+	align-items: center;
+}
+
+.vul-btn {
+	appearance: none;
+	font: inherit;
+	font-weight: 600;
+	font-size: .95em;
+	line-height: 1.2;
+	padding: 11px 18px;
+	border-radius: var(--vul-btn-radius);
+	border: 1px solid transparent;
+	cursor: pointer;
+	background: none;
+	color: inherit;
+	transition: background .15s, color .15s, border-color .15s, opacity .15s;
+	margin: 0;
+}
+
+.vul-btn--primary {
+	background: var(--vul-accent);
+	color: var(--vul-accent-fg);
+	border-color: var(--vul-accent);
+}
+
+.vul-btn--primary:hover {
+	opacity: .88;
+}
+
+/* Reject must be as prominent as Accept (ICO): same size, same weight, a visible border in the text colour. */
+.vul-btn--secondary {
+	border-color: var(--vul-fg);
+	color: var(--vul-fg);
+}
+
+.vul-btn--secondary:hover {
+	background: var(--vul-fg);
+	color: var(--vul-bg);
+}
+
+.vul-btn--link {
+	padding-left: 6px;
+	padding-right: 6px;
+	text-decoration: underline;
+	text-underline-offset: .15em;
+	font-weight: 500;
+	color: var(--vul-muted);
+}
+
+.vul-btn--link:hover {
+	color: var(--vul-fg);
+}
+
+.vul-btn:focus-visible,
+.vul-close:focus-visible,
+.vul-switch:focus-visible {
+	outline: 2px solid var(--vul-accent);
+	outline-offset: 2px;
+}
+
+/* ----- Overlay + modal ----- */
+
+.vul-overlay {
+	position: fixed;
+	inset: 0;
+	background: var(--vul-overlay);
+	z-index: calc(var(--vul-z) - 1);
+	animation: vul-fade .2s ease both;
+}
+
+.vul-modal {
+	position: fixed;
+	inset: 0;
+	z-index: var(--vul-z);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--vul-gap);
+	overflow-y: auto;
+}
+
+.vul-modal__inner {
+	background: var(--vul-bg);
+	color: var(--vul-fg);
+	border: 1px solid var(--vul-border);
+	border-radius: var(--vul-radius);
+	box-shadow: var(--vul-shadow);
+	width: 100%;
+	max-width: 560px;
+	max-height: calc(100vh - var(--vul-gap) * 2);
+	max-height: calc(100dvh - var(--vul-gap) * 2);
+	overflow-y: auto;
+	padding: 24px;
+	animation: vul-in-modal .25s ease both;
+}
+
+.vul-modal__head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.vul-close {
+	appearance: none;
+	background: none;
+	border: 0;
+	padding: 6px;
+	margin: -6px -6px 0 0;
+	cursor: pointer;
+	color: var(--vul-muted);
+	border-radius: 50%;
+	display: inline-flex;
+}
+
+.vul-close:hover {
+	color: var(--vul-fg);
+	background: var(--vul-border);
+}
+
+.vul-cats {
+	margin: 20px 0 4px;
+	border-top: 1px solid var(--vul-border);
+}
+
+.vul-cat {
+	padding: 16px 0;
+	border-bottom: 1px solid var(--vul-border);
+}
+
+.vul-cat__row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.vul-cat__label {
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.vul-cat__always {
+	font-size: .85em;
+	color: var(--vul-muted);
+	font-weight: 500;
+}
+
+.vul-cat__desc {
+	color: var(--vul-muted);
+	font-size: .92em;
+	margin-top: 6px;
+}
+
+.vul-cat__details {
+	margin-top: 8px;
+	font-size: .88em;
+}
+
+.vul-cat__details summary {
+	cursor: pointer;
+	color: var(--vul-muted);
+	text-decoration: underline;
+	text-underline-offset: .15em;
+}
+
+.vul-cat__details ul {
+	margin: 8px 0 0;
+	padding: 0 0 0 1.2em;
+}
+
+.vul-cat__details code {
+	font-size: .95em;
+	background: color-mix(in srgb, var(--vul-border) 50%, transparent);
+	padding: .05em .35em;
+	border-radius: 4px;
+}
+
+.vul-modal__actions {
+	margin-top: 16px;
+}
+
+.vul-modal__foot {
+	margin-top: 14px;
+	font-size: .88em;
+	color: var(--vul-muted);
+}
+
+/* ----- Switch ----- */
+
+.vul-switch {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 44px;
+	height: 26px;
+	border-radius: 13px;
+	background: var(--vul-switch-off);
+	position: relative;
+	cursor: pointer;
+	flex: 0 0 auto;
+	margin: 0;
+	border: 0;
+	transition: background .2s;
+}
+
+.vul-switch::after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+	transition: transform .2s;
+}
+
+.vul-switch:checked {
+	background: var(--vul-switch-on);
+}
+
+.vul-switch:checked::after {
+	transform: translateX(18px);
+}
+
+.vul-switch:disabled {
+	opacity: .5;
+	cursor: default;
+}
+
+.vul-cat__always + .vul-switch {
+	display: none;
+}
+
+/* ----- Blocked embeds ----- */
+
+.vul-embed {
+	position: relative;
+	min-height: 200px;
+	background: var(--vul-border);
+	border-radius: var(--vul-radius);
+	overflow: hidden;
+	display: grid;
+	place-items: center;
+}
+
+.vul-embed iframe[data-vul-src] {
+	display: none;
+}
+
+.vul-embed__placeholder {
+	text-align: center;
+	padding: 32px 24px;
+	max-width: 420px;
+	color: var(--vul-fg);
+	font-size: var(--vul-text-size);
+}
+
+.vul-embed__placeholder p {
+	margin-bottom: 12px;
+}
+
+.vul-embed__placeholder a {
+	display: inline-block;
+	margin-top: 8px;
+	font-size: .9em;
+	color: var(--vul-muted);
+}
+
+.vul-embed--loaded {
+	background: none;
+	display: block;
+	min-height: 0;
+}
+
+.vul-embed--loaded .vul-embed__placeholder {
+	display: none;
+}
+
+.vul-embed--loaded iframe {
+	display: block;
+}
+
+/* ----- Motion ----- */
+
+@keyframes vul-in {
+	from { opacity: 0; transform: translateY(12px); }
+	to   { opacity: 1; transform: none; }
+}
+
+@keyframes vul-in-modal {
+	from { opacity: 0; transform: translate(-50%, -50%) scale(.97); }
+	to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.vul-modal__inner {
+	animation-name: vul-in-scale;
+}
+
+@keyframes vul-in-scale {
+	from { opacity: 0; transform: scale(.97); }
+	to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes vul-fade {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.vul-banner,
+	.vul-overlay,
+	.vul-modal__inner {
+		animation: none;
+	}
+}
+
+@media (max-width: 480px) {
+	.vul--box-left .vul-banner,
+	.vul--box-right .vul-banner {
+		--vul-gap: 10px;
+	}
+	.vul-actions .vul-btn {
+		flex: 1 1 auto;
+		text-align: center;
+	}
+	.vul-btn--link {
+		flex-basis: 100%;
+	}
+}
+
+html.vul-lock {
+	overflow: hidden;
+}
+
+/* ----- Cookie policy (generated) ----- */
+
+.vul-policy__table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: .92em;
+	margin: 1em 0 2em;
+}
+
+.vul-policy__table th,
+.vul-policy__table td {
+	text-align: left;
+	vertical-align: top;
+	padding: .6em .75em;
+	border-bottom: 1px solid var(--vul-border, #e6e4dd);
+}
+
+.vul-policy__table th {
+	font-weight: 600;
+}
+
+.vul-policy__table code {
+	white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+	.vul-policy__table thead {
+		display: none;
+	}
+	.vul-policy__table tr {
+		display: block;
+		padding: .6em 0;
+		border-bottom: 1px solid var(--vul-border, #e6e4dd);
+	}
+	.vul-policy__table td {
+		display: block;
+		border: 0;
+		padding: .15em 0;
+	}
+	.vul-policy__table td::before {
+		content: attr(data-label) ": ";
+		font-weight: 600;
+	}
+}
+
+/* ----- Inline settings panel (policy page / [vu_cookie_settings]) ----- */
+
+.vul-inline {
+	border: 1px solid var(--vul-border);
+	border-radius: var(--vul-radius);
+	padding: 20px 24px;
+	margin: 1em 0 2em;
+	background: var(--vul-bg);
+}
+
+.vul-inline .vul-cats {
+	margin-top: 12px;
+}
+
+.vul-inline__status {
+	font-size: .92em;
+	color: var(--vul-muted);
+	padding: 10px 14px;
+	border-radius: var(--vul-btn-radius);
+	background: color-mix(in srgb, var(--vul-border) 45%, transparent);
+}
+
+.vul-inline__status.is-saved {
+	color: var(--vul-fg);
+	background: color-mix(in srgb, var(--vul-accent) 12%, transparent);
+}
+
+.vul-inline .vul-actions {
+	margin-top: 16px;
+}
+
+.vul-inline__status.is-unsaved {
+	color: var(--vul-fg);
+	background: color-mix(in srgb, #e0a100 18%, transparent);
+}

@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "vu-legals/cookie-policy",
+	"title": "Cookie Policy",
+	"category": "widgets",
+	"icon": "privacy",
+	"description": "The generated cookie policy, built from the Vu Legals cookie registry and settings.",
+	"keywords": [ "cookie", "policy", "legal", "gdpr" ],
+	"supports": { "html": false, "multiple": false, "align": [ "wide", "full" ] },
+	"textdomain": "vu-legals",
+	"editorScript": "file:./index.js"
+}

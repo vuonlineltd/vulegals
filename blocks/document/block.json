@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "vu-legals/document",
+	"title": "Legal Document",
+	"category": "widgets",
+	"icon": "media-document",
+	"description": "A generated legal document from Vu Legals: Terms of Use, Privacy Policy, Accessibility Statement or Cookie Policy.",
+	"keywords": [ "terms", "privacy", "legal", "accessibility" ],
+	"attributes": { "type": { "type": "string", "default": "terms" } },
+	"supports": { "html": false, "align": [ "wide", "full" ] },
+	"textdomain": "vu-legals",
+	"editorScript": "file:./index.js"
+}
