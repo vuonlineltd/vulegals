@@ -3,7 +3,7 @@
  * Plugin Name:       Vu Legals
  * Plugin URI:        https://vudigital.co.uk
  * Description:       Cookie consent, cookie registry, script gating, Google Consent Mode v2 and a generated Cookie Policy. Styled from your own CSS variables. No licence, no branding.
- * Version:           1.1.3
+ * Version:           1.1.4
  * Requires at least: 6.3
  * Requires PHP:      8.0
  * Author:            Vu Digital
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'VUL_VERSION', '1.1.3' );
+define( 'VUL_VERSION', '1.1.4' );
 define( 'VUL_FILE', __FILE__ );
 define( 'VUL_DIR', plugin_dir_path( __FILE__ ) );
 define( 'VUL_URL', plugin_dir_url( __FILE__ ) );

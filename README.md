@@ -5,7 +5,7 @@ Cookie consent for WordPress, built for Vu Digital client sites. No licence, no 
 **What it does**
 
 - Two-layer consent UI (banner + preferences) with four categories: strictly necessary, functional, analytics, marketing. Reject is as easy as accept, nothing pre-ticked (ICO/PECR).
-- Cookie registry (Vu Legals → Cookies) with one-click presets for GA4, Google Ads, Meta Pixel, LinkedIn, Hotjar, Clarity, HubSpot, YouTube, Vimeo, Maps, reCAPTCHA, X, TikTok, WordPress, Gravity Forms, WooCommerce. A homepage scanner tells you which ones you need.
+- Cookie registry (Vu Legals → Cookies) with one-click presets for GA4, Google Ads, Meta Pixel, LinkedIn, Hotjar, Clarity, HubSpot, HandL UTM Grabber, YouTube, Vimeo, Maps, reCAPTCHA, X, TikTok, WordPress, Gravity Forms, WooCommerce. A homepage scanner tells you which ones you need.
 - Generated Cookie Policy page (block or `[vu_cookie_policy]` shortcode) that stays in sync with the registry and company details, with an inline "Change your cookie settings" panel (switches + save) at the bottom so the policy page is also the place to change your mind. Available anywhere as `[vu_cookie_settings]`.
 - Script gating: known trackers are detected anywhere in the page output (Oxygen code blocks, WPCode, theme) and held as `type="text/plain"` until consent. Enqueued handles and custom URL patterns can be mapped manually. Paste-in snippets under Vu Legals → Scripts.
 - Embed blocking: YouTube / Vimeo / Maps iframes in content become a placeholder until consent.
