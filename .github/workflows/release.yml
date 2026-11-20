@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check tag matches plugin version
         if: startsWith(github.ref, 'refs/tags/v')
@@ -35,14 +35,14 @@ jobs:
           zip -rq vu-legals.zip vu-legals
 
       - name: Upload workflow artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: vu-legals
           path: build/vu-legals.zip
 
       - name: Publish GitHub release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: build/vu-legals.zip
           generate_release_notes: true
